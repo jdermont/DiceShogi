@@ -6,6 +6,7 @@ import com.codingame.gameengine.core.GameManager;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.endscreen.EndScreenModule;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
+import com.codingame.gameengine.module.toggle.ToggleModule;
 import com.codingame.view.DiceViewer;
 import com.codingame.view.BoardViewer;
 import com.codingame.view.PlayerViewer;
@@ -19,6 +20,7 @@ public class Referee extends AbstractReferee {
     @Inject private MultiplayerGameManager<Player> gameManager;
     @Inject private GraphicEntityModule graphicEntityModule;
     @Inject private EndScreenModule endScreenModule;
+    @Inject private ToggleModule toggleModule;
 
     private Game game;
     private BoardViewer boardViewer;
@@ -43,7 +45,7 @@ public class Referee extends AbstractReferee {
     }
 
     private void initViewers() {
-        boardViewer = new BoardViewer(game, graphicEntityModule);
+        boardViewer = new BoardViewer(game, graphicEntityModule, toggleModule);
         playerViewer = new PlayerViewer(game, graphicEntityModule, gameManager.getPlayer(0), gameManager.getPlayer(1));
         diceViewer = new DiceViewer(game, graphicEntityModule);
         boardViewer.init();

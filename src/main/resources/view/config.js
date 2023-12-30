@@ -15,3 +15,15 @@ export const playerColors = [
   '#101010', // black
   '#f0f0f0' // white
 ];
+
+export const options = [
+    ToggleModule.defineToggle({
+        toggle: 'sfenToggle',
+        title: 'Show SFEN',
+        values: {
+            'ON': true,
+            'OFF': false
+        },
+        default: false
+    })
+];

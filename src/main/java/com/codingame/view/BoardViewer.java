@@ -5,25 +5,29 @@ import com.codingame.game.GameState;
 import com.codingame.game.Move;
 import com.codingame.game.Piece;
 import com.codingame.gameengine.module.entities.*;
+import com.codingame.gameengine.module.toggle.ToggleModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardViewer {
     private GraphicEntityModule graphicEntityModule;
+    private ToggleModule toggleModule;
     private Group group;
     private Rectangle[][] squares;
     private Rectangle[] columns;
     private Rectangle checkSquare;
+    private Text sfenText;
 
     private List<List<PieceSprite>> unusedPieces;
     private List<List<PieceSprite>> usedPieces;
 
     private Game game;
 
-    public BoardViewer(Game game, GraphicEntityModule graphicEntityModule) {
+    public BoardViewer(Game game, GraphicEntityModule graphicEntityModule, ToggleModule toggleModule) {
         this.game = game;
         this.graphicEntityModule = graphicEntityModule;
+        this.toggleModule = toggleModule;
     }
 
     public void init() {
@@ -214,12 +218,25 @@ public class BoardViewer {
             text.setZIndex(10);
             group.add(text);
         }
+        sfenText = graphicEntityModule.createText();
+        sfenText.setFontFamily("Verdana");
+        sfenText.setFontSize(32);
+        sfenText.setFillColor(0xe0e0e0);
+        sfenText.setX(480);
+        sfenText.setY(-50);
+        sfenText.setZIndex(10);
+        sfenText.setAnchorX(0.5f);
+        sfenText.setText(game.gameState.toSFENString());
+        toggleModule.displayOnToggleState(sfenText, "sfenToggle", true);
+        group.add(sfenText);
     }
 
     public void updateFrame() {
         updateColumns();
         updateSquares();
         updatePieces();
+        sfenText.setText(game.gameState.toSFENString());
+        graphicEntityModule.commitEntityState(0, sfenText);
     }
 
     public void updateColumns() {
