@@ -1,0 +1,25 @@
+read id:int
+read boardSize:int
+gameloop
+loop boardSize read line:word(12)
+read player1hand:word(12)
+read player2hand:word(12)
+read rolledDice:int
+read lastOpponentAction:word(12)
+read actionCount:int
+loop actionCount read action:word(12)
+write random
+
+INPUT
+id: id of your player: 0 - first, 1 - second
+boardSize: size of the board, always 5
+line: rows from top to bottom (viewer perspective)
+player1hand: pieces in player 1's hand or '-' if none
+player2hand: pieces in player 2's hand or '-' if none
+rolledDice: number on the rolled dice
+lastOpponentAction: last opponent's move or 'none' if first turn
+actionCount: number of legal actions for this turn.
+action: the action
+
+OUTPUT
+colFrom rowFrom colTo rowTo i.e. 5142, with + for promotion; piece*colToRowTo for drop; you can append message after space

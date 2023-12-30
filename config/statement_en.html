@@ -1,0 +1,197 @@
+<div style="color:#000000;background-color:rgba(255, 255, 255, 0.5);padding:20px;margin-bottom:10px;text-align:left">
+    This is a port of the board game <a href="https://ludii.games/details.php?keyword=Dice%20Shogi">Dice Shogi</a>, which is a variant of <a href="https://en.wikipedia.org/wiki/Minishogi">Minishogi</a>.
+    <br>Click <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">here</a> for the referee.<br>
+</div>
+
+<div id="statement_back" class="statement_back" style="display:none"></div>
+<div class="statement-body">
+    <!-- GOAL -->
+    <div class="statement-section statement-goal">
+        <h1>
+            <span class="icon icon-goal">&nbsp;</span>
+            <span>The Goal</span>
+        </h1>
+        <div class="statement-goal-content">
+            The goal is to checkmate your opponent's king.
+        </div>
+    </div>
+    <!-- RULES -->
+    <div class="statement-section statement-rules">
+        <h1>
+            <span class="icon icon-rules">&nbsp;</span>
+            <span>Rules</span>
+        </h1>
+        <div class="statement-rules-content">
+            <strong>Minishogi</strong> rules apply.<br><br>
+            <strong>Grid: </strong><br> Game is played on a 5x5 board. There can be also pieces on the players' "hands".<br>
+            Each player begins with a set of 6 pieces: King, Gold General, Silver General, Bishop, Rook and Pawn.<br>
+            <strong>The board starting position:</strong>
+            <p style="text-align: center;"><img src="https://i.imgur.com/Lj7VLOi.png" style="height: 250px; width: auto;"></img></p>
+            <ul>
+                <li>Player 0(<strong style="color:#101010">black</strong>) has pieces on the bottom and Player 1(<strong style="color:#f0f0f0">white</strong>) has pieces on top.</li>
+                <li>For the <strong style="color:#101010">Player 0</strong>, at the bottom from left are: King, Gold General, Silver General, Bishop, Rook. Pawn is at the front of King.</li>
+                <li>For the <strong style="color:#f0f0f0">Player 1</strong>, at the top from left are: Rook, Bishop, Silver General, Gold General, King. Pawn is at the front of King.</li>
+                <li>Black always goes first and white goes next. Player rolls die on each turn.</li>
+            </ul>
+
+            <br>
+            <strong>Movement: </strong><br>
+            Each piece has its own movement:<br>
+            <ul>
+                <li><strong>King (王)</strong> moves one square in any direction (horizontally, vertically, or diagonally).</li>
+                <li><strong>Rook (飛)</strong> moves as many squares as desired horizontally or vertically.</li>
+                <li><strong>Bishop (角)</strong> moves as many squares as desired diagonally.</li>
+                <li><strong>Gold General (金)</strong> moves one square in any direction: horizontally, vertically, or diagonally. It cannot move backward diagonally.</li>
+                <li><strong>Silver General (銀)</strong> moves one square diagonally or one square straight forward. It cannot move backward directly.</li>
+                <li><strong>Pawn (歩)</strong> moves one square forward.</li>
+                <li><strong>Promoted Silver General (全), Promoted Pawn (と)</strong> move like Gold General.</li>
+                <li><strong>Promoted Rook (Dragon,龍)</strong> has movements of Rook and King.</li>
+                <li><strong>Promoted Bishop (Horse,龍)</strong> has movements of Bishop and King.</li>
+            </ul>
+
+            <br>
+            <strong>Promotion: </strong><br>
+            Whenever a piece <strong>reaches, moves through, or moves out of</strong> its furthest rank (row) (rank 5 for black player and rank 1 for white player), it can be promoted. Promotions are optional except for pawn, it has to be promoted when it reaches the furthest rank.
+            <ul>
+                <li><strong>Rook</strong> promotes into <strong>Promoted Rook (Dragon)</strong>.</li>
+                <li><strong>Bishop</strong> promotes into <strong>Promoted Bishop (Horse)</strong>.</li>
+                <li><strong>Silver General</strong> promotes into <strong>Promoted Silver General</strong>.</li>
+                <li><strong>Pawn</strong> promotes into <strong>Promoted Pawn</strong>.</li>
+                <li><strong>King, Gold General</strong> cannot be promoted.</li>
+            </ul>
+
+            <br>
+            <strong>Captures: </strong><br>
+            When a piece goes into square occupied by opponent's piece, it captures it. The captured piece goes <strong>unpromoted</strong> into player's hand. In the subsequent turns, the player may choose to drop the piece onto the board under his control.
+
+            <br><br>
+            <strong>Drops: </strong><br>
+            On any turn, instead of moving a piece on the board, a player may select a piece in hand and place it <strong>unpromoted</strong> on any empty square on the board, under his control. There are some restrictions:
+            <ul>
+                <li><strong>Pawn</strong> cannot be placed onto its furthest rank (row).</li>
+                <li><strong>Pawn</strong> cannot be place onto file (column) that already contains player's unpromoted pawn.</li>
+                <li><strong>Pawn</strong> cannot deliver checkmate in the same turn. But it can do it in the subsequent turns.</li>
+                <li>Dropped piece on furthest rank (row) doesn't get promoted in the same turn. But it may be promoted in the subsequent turns.</li>
+            </ul>
+
+            <br>
+            <strong>Check, checkmate and stalemate:</strong><br>
+            If player's king is under attack of opponent's piece and would be captured in the next turn, it is in <strong>check</strong>. The player must remove the check. If he cannot, then his king is <strong>checkmated</strong> and the player loses game.<br>
+            If player's king isn't in <strong>check</strong>, but also the player doesn't have any legal move, then it is <strong>stalemate</strong>, and the player also loses game.
+
+            <br><br>
+            <strong>Dice rolling and movement: </strong><br>
+            In <strong>Dice Shogi</strong>, at the start of a turn, the player rolls a die. The value of the die is the index of file (column) the piece must go to or be dropped to. If he rolls 1, then he can move or drop only to the most right column. TODO: or it should be left most? this is what ludii does, but that is confusing with the usual shogi notation.
+            <ul>
+                <li>If a player rolls <const>6</const>, then he can move or drop to anywhere.</li>
+                <li>If a player doesn't have legal move with the desired file (column), then he can move or drop to anywhere.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- EXPERT RULES -->
+    <div class="statement-section statement-expertrules">
+        <h1>
+            <span class="icon icon-expertrules">&nbsp;</span>
+            <span>Expert Rules</span>
+        </h1>
+        <div class="statement-expert-rules-content">
+            <ul style="padding-bottom: 0;">
+                <li>Game lasts at most <const>300</const> rounds. If not checkmate is delivered by then, then the game is draw.</li>
+                <li>If <var>seed</var>=<const>0</const>, then all dice rolls are <const>6</const>, the game becomes standard <strong>Minishogi</strong>.</li>
+                <li>TODO: is there a need for handling repetitions or perpetual checks?</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Victory conditions -->
+    <div class="statement-victory-conditions">
+        <div class="icon victory"></div>
+        <div class="blk">
+            <div class="title">Victory Conditions</div>
+            <div class="text">
+                <ul style="padding-bottom: 0;">
+                    <li>Deliver checkmate to your opponent's king.</li>
+                    <li>Opponent doesn't have any legal moves in his turn (stalemate).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lose conditions -->
+    <div class="statement-lose-conditions">
+        <div class="icon lose"></div>
+        <div class="blk">
+            <div class="title">Loss Conditions</div>
+            <div class="text">
+                <ul style="padding-bottom: 0;">
+                    <li>Your king is checkmated.</li>
+                    <li>You don't have any legal move in you turn (stalemate).</li>
+                    <li>You timeout, crash or give unrecognizable output.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROTOCOL -->
+    <div class="statement-section statement-protocol">
+        <h1>
+            <span class="icon icon-protocol">&nbsp;</span>
+            <span>Game Input</span>
+        </h1>
+
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="title">Pieces notation</div>
+            <div class="text">
+                <span class="statement-lineno">First player</span>: 'K' - king, 'G' - Gold General, 'S' - Silver General, 'B' - Bishop, 'R' - Rook', 'P' - Pawn, '+S' - Promoted Silver, '+B' - Promoted Bishop, '+R' - Promoted Rook, '+P' - Promoted Pawn
+                <br>
+                <span class="statement-lineno">Second player</span>: 'k' - king, 'g' - Gold General, 's' - Silver General, 'b' - Bishop, 'r' - Rook', 'p' - Pawn, '+s' - Promoted Silver, '+b' - Promoted Bishop, '+r' - Promoted Rook, '+p' - Promoted Pawn
+                <br>
+            </div>
+        </div>
+
+        <div class="blk">
+            <div class="title">Initial input</div>
+            <div class="text">
+                <span class="statement-lineno">First line</span>: The id of the player(<var>id</var>), 0 - first player, 1 - second player
+                <br>
+                <span class="statement-lineno">Second line</span>: <var>boardSize</var>: the number of rows and columns on the board, always <var>5</var>.
+            </div>
+            <div class="title">Input for one game turn</div>
+            <div class="text">
+                <span class="statement-lineno">Next <var>boardSize</var> <var>line</var></span>: a string of characters representing one line of your grid, top to bottom. ('.': empty, 'K': first player king, 'k': second player king, and so on, see Pieces notation above).<br>
+                <span class="statement-lineno">First player's current hand</span>, or '-' if he has no pieces in the hand. i.e. 'BGS'<br>
+                <span class="statement-lineno">Second player's current hand</span>, or '-' if he has no pieces in the hand. i.e. 'bgs'<br>
+                <span class="statement-lineno">Value</span> of the rolled die.<br>
+                <span class="statement-lineno">Last opponent's <var>action</var></span> or 'none' if first turn of first player.<br>
+                <span class="statement-lineno">Next <var>actionCount</var> <var>action</var></span>: a string representing the action.
+                <br>
+            </div>
+        </div>
+
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="title">Output</div>
+            <div class="text">
+                <span class="statement-lineno">A single line</span> containing the coordinates where you want to play. Or <const>random</const>. TODO: notation?
+                <ul>
+                    <li>For the movement, it is columnFrom rowFrom columnTo rowTo with '+' for promotion. Examples: <const>4534</const>, <const>1425+</const></li>
+                    <li>For the drop, it is Piece * columnTo rowTo. Examples: <const>G*33</const>, <const>p*22</const></li>
+                    <li>Output piece notation is not case sensitive.</li>
+                </ul>
+                You can also print message after space following action. Example: "4534 Take this!".
+                <br>
+            </div>
+        </div>
+
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="title">Constraints</div>
+            Response time first turn is ≤
+            <const>1000</const> ms.
+            <br>Response time per turn is ≤
+            <const>100</const> ms.
+        </div>
+    </div>
+</div>
