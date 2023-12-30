@@ -33,11 +33,7 @@ public class Player2 {
                 if (action == null || Math.random() > 0.5) action = move;
 //                System.err.println(move);
             }
-            if (Math.random() > 0.999) {
-                System.out.println("1234");
-            } else {
-                System.out.println(action+" WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-            }
+            System.out.println(action+" Take this!");
 
         }
     }

@@ -13,8 +13,6 @@ public class Main {
         gameRunner.addAgent(Player1.class);
         gameRunner.addAgent(Player2.class);
 
-        gameRunner.setLeagueLevel(1);
-
         gameRunner.start();
     }
 }
