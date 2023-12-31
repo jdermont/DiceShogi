@@ -3,7 +3,7 @@ package com.codingame.game;
 import java.io.*;
 import java.util.*;
 
-public class GameState implements Serializable {
+public class GameState {
     public static final int SIZE = 5;
 
     public Piece[][][] board;
@@ -173,17 +173,32 @@ public class GameState implements Serializable {
     }
 
     public GameState deepCopy() {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream out = new ObjectOutputStream(bos);
-            out.writeObject(this);
-
-            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-            ObjectInputStream in = new ObjectInputStream(bis);
-            return (GameState) in.readObject();
-        } catch (Exception e) {
-            throw new RuntimeException("deepCopy fail, should not happen wtf", e);
+        // TODO: old inefficient code, to remove
+//        try {
+//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//            ObjectOutputStream out = new ObjectOutputStream(bos);
+//            out.writeObject(this);
+//
+//            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+//            ObjectInputStream in = new ObjectInputStream(bis);
+//            return (GameState) in.readObject();
+//        } catch (Exception e) {
+//            throw new RuntimeException("deepCopy fail, should not happen wtf, is it not Serializable?", e);
+//        }
+        GameState gameState = new GameState();
+        gameState.board = new Piece[board.length][board[0].length][board[0][0].length];
+        for (int i=0; i < board.length; i++) {
+            for (int j=0; j < board[i].length; j++) {
+                System.arraycopy(board[i][j], 0, gameState.board[i][j], 0, board[i][j].length);
+            }
         }
+        gameState.hands = new ArrayList<>();
+        for (int i=0; i < hands.size(); i++) {
+            gameState.hands.add(new ArrayList<>(hands.get(i)));
+        }
+        gameState.currentPlayer = currentPlayer;
+        gameState.rounds = rounds;
+        return gameState;
     }
 
     public void init() {
@@ -473,13 +488,12 @@ public class GameState implements Serializable {
             }
         }
         moves.addAll(getDropMoves(player));
-        for (int i=0; i < moves.size(); i++) {
+        for (int i=moves.size()-1; i >= 0; i--) {
             Move move = moves.get(i);
             GameState temp = this.deepCopy();
             temp.makeMove(move);
             if (temp.isKingInCheck(player)) {
                 moves.remove(i);
-                i--;
             }
         }
         return moves;
@@ -509,11 +523,27 @@ public class GameState implements Serializable {
                                 // don't forget to make pawn drop checkmate illegal,
                                 // fairy stockfish and minishogilib seem to allow that
                                 // but that spoils perft :s
-                                GameState temp = this.deepCopy();
-                                temp.makeMove(new Move(player,row,col,piece));
-                                if (!temp.isOver()) {
+                                if (player == Game.FIRST_PLAYER && board[Game.SECOND_PLAYER][row+1][col] == Piece.KING) {
+                                    GameState temp = this.deepCopy();
+                                    temp.makeMove(new Move(player,row,col,piece));
+                                    if (!temp.isOver()) {
+                                        dropMoves.add(new Move(player,row,col,piece));
+                                    }
+                                } else if (player == Game.SECOND_PLAYER && board[Game.FIRST_PLAYER][row-1][col] == Piece.KING) {
+                                    GameState temp = this.deepCopy();
+                                    temp.makeMove(new Move(player,row,col,piece));
+                                    if (!temp.isOver()) {
+                                        dropMoves.add(new Move(player,row,col,piece));
+                                    }
+                                } else {
                                     dropMoves.add(new Move(player,row,col,piece));
                                 }
+                                // TODO: old inefficient code, to remove + it didn't allow pawn drop stalemate oO
+//                                GameState temp = this.deepCopy();
+//                                temp.makeMove(new Move(player,row,col,piece));
+//                                if (!temp.isOver()) {
+//                                    dropMoves.add(new Move(player,row,col,piece));
+//                                }
                             }
                         }
                     }
