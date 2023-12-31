@@ -476,8 +476,10 @@ public class GameState {
             }
         }
         moves.addAll(getDropMoves(player));
+        boolean wasInCheck = isKingInCheck(player);
         for (int i=moves.size()-1; i >= 0; i--) {
             Move move = moves.get(i);
+            if (move.colFrom == -1 && !wasInCheck) continue;
             GameState temp = this.deepCopy();
             temp.makeMove(move);
             if (temp.isKingInCheck(player)) {
