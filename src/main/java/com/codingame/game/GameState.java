@@ -1,9 +1,9 @@
 package com.codingame.game;
 
-import java.io.*;
 import java.util.*;
 
 public class GameState {
+    public static boolean ALLOW_PAWN_DROP_CHECKMATE = false;
     public static final int SIZE = 5;
 
     public Piece[][][] board;
@@ -173,23 +173,11 @@ public class GameState {
     }
 
     public GameState deepCopy() {
-        // TODO: old inefficient code, to remove
-//        try {
-//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//            ObjectOutputStream out = new ObjectOutputStream(bos);
-//            out.writeObject(this);
-//
-//            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-//            ObjectInputStream in = new ObjectInputStream(bis);
-//            return (GameState) in.readObject();
-//        } catch (Exception e) {
-//            throw new RuntimeException("deepCopy fail, should not happen wtf, is it not Serializable?", e);
-//        }
         GameState gameState = new GameState();
-        gameState.board = new Piece[board.length][board[0].length][board[0][0].length];
+        gameState.board = new Piece[board.length][board[0].length][];
         for (int i=0; i < board.length; i++) {
             for (int j=0; j < board[i].length; j++) {
-                System.arraycopy(board[i][j], 0, gameState.board[i][j], 0, board[i][j].length);
+                gameState.board[i][j] = board[i][j].clone();
             }
         }
         gameState.hands = new ArrayList<>();
@@ -520,30 +508,28 @@ public class GameState {
                                 }
                             }
                             if (!alreadyPawn) {
-                                // don't forget to make pawn drop checkmate illegal,
-                                // fairy stockfish and minishogilib seem to allow that
+                                // pawn drop checkmate are illegal, but fairy stockfish
+                                // and minishogilib seem to allow that
                                 // but that spoils perft :s
-                                if (player == Game.FIRST_PLAYER && board[Game.SECOND_PLAYER][row+1][col] == Piece.KING) {
-                                    GameState temp = this.deepCopy();
-                                    temp.makeMove(new Move(player,row,col,piece));
-                                    if (!temp.isOver()) {
-                                        dropMoves.add(new Move(player,row,col,piece));
-                                    }
-                                } else if (player == Game.SECOND_PLAYER && board[Game.FIRST_PLAYER][row-1][col] == Piece.KING) {
-                                    GameState temp = this.deepCopy();
-                                    temp.makeMove(new Move(player,row,col,piece));
-                                    if (!temp.isOver()) {
-                                        dropMoves.add(new Move(player,row,col,piece));
-                                    }
-                                } else {
+                                if (ALLOW_PAWN_DROP_CHECKMATE) {
                                     dropMoves.add(new Move(player,row,col,piece));
+                                } else {
+                                    if (player == Game.FIRST_PLAYER && board[Game.SECOND_PLAYER][row+1][col] == Piece.KING) {
+                                        GameState temp = this.deepCopy();
+                                        temp.makeMove(new Move(player,row,col,piece));
+                                        if (!temp.isOver()) {
+                                            dropMoves.add(new Move(player,row,col,piece));
+                                        }
+                                    } else if (player == Game.SECOND_PLAYER && board[Game.FIRST_PLAYER][row-1][col] == Piece.KING) {
+                                        GameState temp = this.deepCopy();
+                                        temp.makeMove(new Move(player,row,col,piece));
+                                        if (!temp.isOver()) {
+                                            dropMoves.add(new Move(player,row,col,piece));
+                                        }
+                                    } else {
+                                        dropMoves.add(new Move(player,row,col,piece));
+                                    }
                                 }
-                                // TODO: old inefficient code, to remove + it didn't allow pawn drop stalemate oO
-//                                GameState temp = this.deepCopy();
-//                                temp.makeMove(new Move(player,row,col,piece));
-//                                if (!temp.isOver()) {
-//                                    dropMoves.add(new Move(player,row,col,piece));
-//                                }
                             }
                         }
                     }
