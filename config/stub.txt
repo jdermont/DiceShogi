@@ -1,13 +1,13 @@
 read id:int
 read boardSize:int
 gameloop
-loop boardSize read line:word(12)
-read player1hand:word(12)
-read player2hand:word(12)
+loop boardSize read line:word(20)
+read player1hand:word(20)
+read player2hand:word(20)
 read rolledDice:int
-read lastOpponentAction:word(12)
+read lastOpponentAction:word(20)
 read actionCount:int
-loop actionCount read action:word(12)
+loop actionCount read action:word(20)
 write random
 
 INPUT
