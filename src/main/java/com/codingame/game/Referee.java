@@ -93,12 +93,6 @@ public class Referee extends AbstractReferee {
         }
     }
 
-    private void setWinner(Player player) {
-        gameManager.addToGameSummary(GameManager.formatSuccessMessage(player.getNicknameToken() + " won!"));
-        player.setScore(10);
-        endGame();
-    }
-
     @Override
     public void gameTurn(int turn) {
         int t = turn-1;
@@ -118,6 +112,7 @@ public class Referee extends AbstractReferee {
             playerViewer.updateFrame();
             boardViewer.updateFrame();
             if (game.isGameOver()) {
+                messageIfStalemate();
                 setScores(game.getWinner());
                 endGame();
             }
@@ -131,6 +126,13 @@ public class Referee extends AbstractReferee {
             player.deactivate(player.getNicknameToken() + ": "+e.getMessage());
             setScores(opponent.getIndex());
             endGame();
+        }
+    }
+
+    private void messageIfStalemate() {
+        if (game.gameState.generateMoves().isEmpty() && !game.gameState.isKingInCheck()) {
+            int p = game.gameState.currentPlayer;
+            gameManager.addTooltip(gameManager.getPlayer(p), gameManager.getPlayer(p).getNicknameToken() + " stalemate");
         }
     }
 
@@ -218,11 +220,11 @@ public class Referee extends AbstractReferee {
     public void onEnd() {
         int[] scores = { gameManager.getPlayer(0).getScore(), gameManager.getPlayer(1).getScore() };
         String[] text = new String[2];
-        if(scores[0] > scores[1]) {
+        if (scores[0] > scores[1]) {
             text[0] = "Won";
             text[1] = "Lost";
             gameManager.addTooltip(gameManager.getPlayer(0), gameManager.getPlayer(0).getNicknameToken() + " won");
-        } else if(scores[1] > scores[0]) {
+        } else if (scores[1] > scores[0]) {
             text[0] = "Lost";
             text[1] = "Won";
             gameManager.addTooltip(gameManager.getPlayer(1), gameManager.getPlayer(1).getNicknameToken() + " won");

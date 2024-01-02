@@ -39,20 +39,20 @@
             <strong>Movement: </strong><br>
             Each piece has its own movement:<br>
             <ul>
-                <li><strong>King (王)</strong> moves one square in any direction (horizontally, vertically, or diagonally).</li>
-                <li><strong>Rook (飛)</strong> moves as many squares as desired horizontally or vertically.</li>
-                <li><strong>Bishop (角)</strong> moves as many squares as desired diagonally.</li>
-                <li><strong>Gold General (金)</strong> moves one square in any direction: horizontally, vertically, or diagonally. It cannot move backward diagonally.</li>
-                <li><strong>Silver General (銀)</strong> moves one square diagonally or one square straight forward. It cannot move backward directly.</li>
-                <li><strong>Pawn (歩)</strong> moves one square forward.</li>
-                <li><strong>Promoted Silver General (全), Promoted Pawn (と)</strong> move like Gold General.</li>
-                <li><strong>Promoted Rook (Dragon,龍王)</strong> has movements of Rook and King.</li>
-                <li><strong>Promoted Bishop (Horse,龍馬)</strong> has movements of Bishop and King.</li>
+                <li><strong>King (王,K)</strong> moves one square in any direction (horizontally, vertically, or diagonally).</li>
+                <li><strong>Rook (飛,R)</strong> moves as many squares as desired horizontally or vertically.</li>
+                <li><strong>Bishop (角,B)</strong> moves as many squares as desired diagonally.</li>
+                <li><strong>Gold General (金,G)</strong> moves one square in any direction: horizontally, vertically, or diagonally. Except it cannot move backward diagonally.</li>
+                <li><strong>Silver General (銀,S)</strong> moves one square diagonally or one square forward.</li>
+                <li><strong>Pawn (歩,P)</strong> moves one square forward.</li>
+                <li><strong>Promoted Silver General (<span style="color: #ff0000;">金</span>,+S), Promoted Pawn (と,+P)</strong> move like Gold General.</li>
+                <li><strong>Promoted Rook (Dragon,龍王,+R)</strong> has movements of Rook and King.</li>
+                <li><strong>Promoted Bishop (Horse,龍馬,+B)</strong> has movements of Bishop and King.</li>
             </ul>
 
             <br>
             <strong>Promotion: </strong><br>
-            Whenever a piece <strong>reaches, moves through, or moves out of</strong> its furthest rank (row) (rank 5 for black player and rank 1 for white player), it can be promoted. Promotions are optional except for pawn, it has to be promoted when it reaches the furthest rank.
+            Whenever a piece <strong>reaches, moves on, or moves out of</strong> its furthest rank (row) (rank 5 for black player and rank 1 for white player), it can be promoted. Promotions are optional except for pawn, it has to be promoted when it reaches the furthest rank.
             <ul>
                 <li><strong>Rook</strong> promotes into <strong>Promoted Rook (Dragon)</strong>.</li>
                 <li><strong>Bishop</strong> promotes into <strong>Promoted Bishop (Horse)</strong>.</li>
@@ -67,7 +67,7 @@
 
             <br><br>
             <strong>Drops: </strong><br>
-            On any turn, instead of moving a piece on the board, a player may select a piece in hand and place it <strong>unpromoted</strong> on any empty square on the board, under his control. There are some restrictions:
+            On any turn, instead of moving a piece on the board, a player may select a piece in his hand and place it <strong>unpromoted</strong> on any empty square on the board, under his control. There are some restrictions:
             <ul>
                 <li><strong>Pawn</strong> cannot be placed onto its furthest rank (row).</li>
                 <li><strong>Pawn</strong> cannot be placed onto file (column) that already contains player's unpromoted pawn.</li>
@@ -82,10 +82,12 @@
 
             <br><br>
             <strong>Dice rolling and movement: </strong><br>
-            In <strong>Dice Shogi</strong>, at the start of a turn, the player rolls a die. The value of the die is the index of file (column) the piece must go to or be dropped to. If he rolls 1, then he can move or drop only to the most right column. TODO: or it should be left most? this is what ludii does, but that is confusing with the usual shogi notation.
+            In <strong>Dice Shogi</strong>, at the start of a turn, the player rolls a die. The value of the die is the index of file (column) the piece must go to or be dropped to. If he rolls 1, then he can move or drop only to the most right column.
+            <br>TODO: or it should be left most? this is what ludii does, but that is confusing with the usual shogi notation.
+            <br>TODO: screenshots
             <ul>
                 <li>If a player rolls <const>6</const>, then he can move to or drop to on any file (column).</li>
-                <li>If a player doesn't have legal move with the desired file (column), then he can move to or drop to on any file (column).</li>
+                <li>If a player doesn't have legal move with the rolled file (column), then he can move to or drop to on any file (column).</li>
             </ul>
         </div>
     </div>
@@ -99,7 +101,7 @@
         <div class="statement-expert-rules-content">
             <ul style="padding-bottom: 0;">
                 <li>Game lasts at most <const>300</const> rounds. If no checkmate is delivered by then, the game is draw.</li>
-                <li>If <var>seed=0</var>, then all dice rolls are <const>6</const>, the game becomes standard Minishogi.</li>
+                <li>If <const>seed=0</const>, then all dice rolls are <const>6</const>, the game becomes standard Minishogi.</li>
                 <li>TODO: is there a need for handling repetitions or perpetual checks?</li>
             </ul>
         </div>
@@ -127,7 +129,7 @@
             <div class="text">
                 <ul style="padding-bottom: 0;">
                     <li>Your king is checkmated.</li>
-                    <li>You don't have any legal move in you turn (stalemate).</li>
+                    <li>You don't have any legal moves in you turn (stalemate).</li>
                     <li>You timeout, crash or give unrecognizable output.</li>
                 </ul>
             </div>
@@ -145,9 +147,9 @@
         <div class="blk">
             <div class="title">Pieces notation</div>
             <div class="text">
-                <span class="statement-lineno">First player</span>: 'K' - king, 'G' - Gold General, 'S' - Silver General, 'B' - Bishop, 'R' - Rook', 'P' - Pawn, '+S' - Promoted Silver, '+B' - Promoted Bishop, '+R' - Promoted Rook, '+P' - Promoted Pawn
+                <span class="statement-lineno">First player</span>: <const>K</const> - king, <const>G</const> - Gold General, <const>S</const> - Silver General, <const>B</const> - Bishop, <const>R</const> - Rook, <const>P</const> - Pawn, <const>+S</const> - Promoted Silver, <const>+B</const> - Promoted Bishop, <const>+R</const> - Promoted Rook, <const>+P</const> - Promoted Pawn
                 <br>
-                <span class="statement-lineno">Second player</span>: 'k' - king, 'g' - Gold General, 's' - Silver General, 'b' - Bishop, 'r' - Rook', 'p' - Pawn, '+s' - Promoted Silver, '+b' - Promoted Bishop, '+r' - Promoted Rook, '+p' - Promoted Pawn
+                <span class="statement-lineno">Second player</span>: <const>k</const> - king, <const>g</const> - Gold General, <const>s</const> - Silver General, <const>b</const> - Bishop, <const>r</const> - Rook, <const>p</const> - Pawn, <const>+s</const> - Promoted Silver, <const>+b</const> - Promoted Bishop, <const>+r</const> - Promoted Rook, <const>+p</const> - Promoted Pawn
                 <br>
             </div>
         </div>
@@ -155,18 +157,18 @@
         <div class="blk">
             <div class="title">Initial input</div>
             <div class="text">
-                <span class="statement-lineno">First line</span>: The id of the player(<var>id</var>), 0 - first player, 1 - second player
+                <span class="statement-lineno">First line</span>: The id of the player(<var>id</var>), <const>0</const> - first player, <const>1</const> - second player
                 <br>
-                <span class="statement-lineno">Second line</span>: <var>boardSize</var>: the number of rows and columns on the board, always <var>5</var>.
+                <span class="statement-lineno">Second line</span>: <var>boardSize</var>: the number of rows and columns on the board, always <const>5</const>.
             </div>
             <div class="title">Input for one game turn</div>
             <div class="text">
-                <span class="statement-lineno">Next <var>boardSize</var> <var>line</var></span>: a string of characters representing one line of your grid, top to bottom. ('.': empty, 'K': first player king, 'k': second player king, and so on, see Pieces notation above).<br>
-                <span class="statement-lineno">First player's current hand</span>, or '-' if he has no pieces in the hand. Examples: '-', 'G', 'BB'<br>
-                <span class="statement-lineno">Second player's current hand</span>, or '-' if he has no pieces in the hand. Examples: '-', 'g', 'bb'<br>
+                <span class="statement-lineno"><var>boardSize</var> lines</span>: a string of characters representing one line of the board, top to bottom. (<const>.</const>: empty, <const>K</const>: first player king, <const>k</const>: second player king, and so on, see Pieces notation above).<br>
+                <span class="statement-lineno">First player's current hand</span>, or <const>-</const> if he has no pieces in the hand. Examples: <const>-</const>, <const>G</const>, <const>BB</const><br>
+                <span class="statement-lineno">Second player's current hand</span>, or <const>-</const> if he has no pieces in the hand. Examples: <const>-</const>, <const>g</const>, <const>bb</const><br>
                 <span class="statement-lineno">Value</span> of the rolled die.<br>
-                <span class="statement-lineno">Last opponent's <var>action</var></span> or 'none' if first turn of first player.<br>
-                <span class="statement-lineno">Next <var>actionCount</var> <var>action</var></span>: a string representing the action.
+                <span class="statement-lineno">Last opponent's <var>action</var></span> or <const>none</const> if first turn of first player.<br>
+                <span class="statement-lineno"><var>actionCount</var> actions</span>: a string representing the action.
                 <br>
             </div>
         </div>
@@ -177,11 +179,11 @@
             <div class="text">
                 <span class="statement-lineno">A single line</span> containing the coordinates where you want to play. Or <const>random</const>. TODO: notation? like in standard shogi, or western like a1b2?
                 <ul>
-                    <li>For the movement, it is columnFrom rowFrom columnTo rowTo with '+' for promotion. Examples: <const>4534</const>, <const>1425+</const></li>
-                    <li>For the drop, it is Piece * columnTo rowTo. Examples: <const>G*33</const>, <const>p*22</const></li>
+                    <li>For the movement, it is <var>columnFrom rowFrom columnTo rowTo</var> with <const>+</const> for promotion. Examples: <const>4534</const>, <const>1425+</const></li>
+                    <li>For the drop, it is <var>Piece * columnTo rowTo</var>. Examples: <const>G*33</const>, <const>p*22</const></li>
                     <li>Output piece notation is not case sensitive.</li>
                 </ul>
-                You can also print message after space following action. Example: "4534 Take this!".
+                You can also print message after space following action. Example: <const>4534 Take this!</const>.
                 <br>
             </div>
         </div>
