@@ -149,10 +149,19 @@ public class BoardViewer {
                     sprite.setBaseWidth(192);
                     sprite.setBaseHeight(192);
                     sprite.setAlpha(0.0f, Curve.IMMEDIATE);
-                    sprite.setImage(getImage(piece, i));
+                    sprite.setImage(getImage(piece, i, false));
                     sprite.setZIndex(6);
-                    unusedPiecesRow.add(new PieceSprite(piece, sprite));
+                    toggleModule.displayOnToggleState(sprite, "westernToggle", false);
+                    Sprite sprite2 = graphicEntityModule.createSprite();
+                    sprite2.setBaseWidth(192);
+                    sprite2.setBaseHeight(192);
+                    sprite2.setAlpha(0.0f, Curve.IMMEDIATE);
+                    sprite2.setImage(getImage(piece, i, true));
+                    sprite2.setZIndex(6);
+                    toggleModule.displayOnToggleState(sprite2, "westernToggle", true);
+                    unusedPiecesRow.add(new PieceSprite(piece, sprite, sprite2));
                     group.add(sprite);
+                    group.add(sprite2);
                 }
             }
             unusedPieces.add(unusedPiecesRow);
@@ -161,35 +170,65 @@ public class BoardViewer {
         updatePieces();
     }
 
-    private String getImage(Piece piece, int player) {
+    private String getImage(Piece piece, int player, boolean western) {
         if (piece == null) {
             return "empty.png";
         }
-        if (player == Game.FIRST_PLAYER) {
-            switch (piece) {
-                case PAWN: return "pawn1.png";
-                case PROMOTED_PAWN: return "ppawn1.png";
-                case ROOK: return "rook1.png";
-                case PROMOTED_ROOK: return "prook1.png";
-                case BISHOP: return "bishop1.png";
-                case PROMOTED_BISHOP: return "pbishop1.png";
-                case SILVER: return "silver1.png";
-                case PROMOTED_SILVER: return "psilver1.png";
-                case GOLD: return "gold1.png";
-                case KING: return "king1.png";
+        if (western) {
+            if (player == Game.FIRST_PLAYER) {
+                switch (piece) {
+                    case PAWN: return "wpawn1.png";
+                    case PROMOTED_PAWN: return "wppawn1.png";
+                    case ROOK: return "wrook1.png";
+                    case PROMOTED_ROOK: return "wprook1.png";
+                    case BISHOP: return "wbishop1.png";
+                    case PROMOTED_BISHOP: return "wpbishop1.png";
+                    case SILVER: return "wsilver1.png";
+                    case PROMOTED_SILVER: return "wpsilver1.png";
+                    case GOLD: return "wgold1.png";
+                    case KING: return "wking1.png";
+                }
+            } else {
+                switch (piece) {
+                    case PAWN: return "wpawn2.png";
+                    case PROMOTED_PAWN: return "wppawn2.png";
+                    case ROOK: return "wrook2.png";
+                    case PROMOTED_ROOK: return "wprook2.png";
+                    case BISHOP: return "wbishop2.png";
+                    case PROMOTED_BISHOP: return "wpbishop2.png";
+                    case SILVER: return "wsilver2.png";
+                    case PROMOTED_SILVER: return "wpsilver2.png";
+                    case GOLD: return "wgold2.png";
+                    case KING: return "wking2.png";
+                }
             }
         } else {
-            switch (piece) {
-                case PAWN: return "pawn2.png";
-                case PROMOTED_PAWN: return "ppawn2.png";
-                case ROOK: return "rook2.png";
-                case PROMOTED_ROOK: return "prook2.png";
-                case BISHOP: return "bishop2.png";
-                case PROMOTED_BISHOP: return "pbishop2.png";
-                case SILVER: return "silver2.png";
-                case PROMOTED_SILVER: return "psilver2.png";
-                case GOLD: return "gold2.png";
-                case KING: return "king2.png";
+            if (player == Game.FIRST_PLAYER) {
+                switch (piece) {
+                    case PAWN: return "pawn1.png";
+                    case PROMOTED_PAWN: return "ppawn1.png";
+                    case ROOK: return "rook1.png";
+                    case PROMOTED_ROOK: return "prook1.png";
+                    case BISHOP: return "bishop1.png";
+                    case PROMOTED_BISHOP: return "pbishop1.png";
+                    case SILVER: return "silver1.png";
+                    case PROMOTED_SILVER: return "psilver1.png";
+                    case GOLD: return "gold1.png";
+                    case KING: return "king1.png";
+                }
+            } else {
+                switch (piece) {
+                    case PAWN: return "pawn2.png";
+                    case PROMOTED_PAWN: return "ppawn2.png";
+                    case ROOK: return "rook2.png";
+                    case PROMOTED_ROOK: return "prook2.png";
+                    case BISHOP: return "bishop2.png";
+                    case PROMOTED_BISHOP: return "pbishop2.png";
+                    case SILVER: return "silver2.png";
+                    case PROMOTED_SILVER: return "psilver2.png";
+                    case GOLD: return "gold2.png";
+                    case KING: return "king2.png";
+                }
             }
         }
         return "empty.png";
@@ -298,7 +337,8 @@ public class BoardViewer {
     private void updatePieces() {
         for (int i=0; i < 2; i++) {
             for (PieceSprite pieceSprite : usedPieces.get(i)) {
-                pieceSprite.sprite.setAlpha(0.0f, Curve.IMMEDIATE);
+                pieceSprite.sprite1.setAlpha(0.0f, Curve.IMMEDIATE);
+                pieceSprite.sprite2.setAlpha(0.0f, Curve.IMMEDIATE);
             }
             unusedPieces.get(i).addAll(usedPieces.get(i));
             usedPieces.get(i).clear();
@@ -314,10 +354,14 @@ public class BoardViewer {
                 if (piece != null) {
                     for (PieceSprite pieceSprite : unusedPieces.get(player)) {
                         if (pieceSprite.piece == piece) {
-                            Sprite sprite = pieceSprite.sprite;
+                            Sprite sprite = pieceSprite.sprite1;
                             sprite.setX(col * 192,Curve.IMMEDIATE);
                             sprite.setY(row * 192 + 24,Curve.IMMEDIATE);
                             sprite.setAlpha(1.0f,Curve.IMMEDIATE);
+                            Sprite sprite2 = pieceSprite.sprite2;
+                            sprite2.setX(col * 192,Curve.IMMEDIATE);
+                            sprite2.setY(row * 192 + 24,Curve.IMMEDIATE);
+                            sprite2.setAlpha(1.0f,Curve.IMMEDIATE);
                             usedPieces.get(player).add(pieceSprite);
                             unusedPieces.get(player).remove(pieceSprite);
                             break;

@@ -46,7 +46,7 @@ public class Referee extends AbstractReferee {
 
     private void initViewers() {
         boardViewer = new BoardViewer(game, graphicEntityModule, toggleModule);
-        playerViewer = new PlayerViewer(game, graphicEntityModule, gameManager.getPlayer(0), gameManager.getPlayer(1));
+        playerViewer = new PlayerViewer(game, graphicEntityModule, toggleModule, gameManager.getPlayer(0), gameManager.getPlayer(1));
         diceViewer = new DiceViewer(game, graphicEntityModule);
         boardViewer.init();
         playerViewer.init();

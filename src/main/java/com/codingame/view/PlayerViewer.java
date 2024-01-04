@@ -4,25 +4,28 @@ import com.codingame.game.Game;
 import com.codingame.game.Piece;
 import com.codingame.game.Player;
 import com.codingame.gameengine.module.entities.*;
+import com.codingame.gameengine.module.toggle.ToggleModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerViewer {
     private GraphicEntityModule graphicEntityModule;
+    private ToggleModule toggleModule;
     private Group[] groups;
     private RoundedRectangle[] backgrounds;
     private Text[] actionMessages;
     private Text[] messages;
     private List<List<Sprite>> hands;
-//    private Rectangle[] dropSquares;
+    private List<List<Sprite>> westernHands;
 
     private Game game;
     private Player[] players;
 
-    public PlayerViewer(Game game, GraphicEntityModule graphicEntityModule, Player player1, Player player2) {
+    public PlayerViewer(Game game, GraphicEntityModule graphicEntityModule, ToggleModule toggleModule, Player player1, Player player2) {
         this.game = game;
         this.graphicEntityModule = graphicEntityModule;
+        this.toggleModule = toggleModule;
         this.players = new Player[] { player1, player2 };
     }
 
@@ -121,53 +124,98 @@ public class PlayerViewer {
 
     private void initHands() {
         hands = new ArrayList<>();
+        westernHands = new ArrayList<>();
         for (int i=0; i < 2; i++) {
             List<Sprite> hand = new ArrayList<>();
             for (int j=0; j < 10; j++) {
                 Sprite sprite = graphicEntityModule.createSprite();
-                sprite.setImage(getImage(null, i));
+                sprite.setImage(getImage(null, i, false));
                 sprite.setBaseWidth(96);
                 sprite.setBaseHeight(96);
                 sprite.setX(96 * (j%4));
                 sprite.setY(380 + 96 * (j/4));
                 sprite.setZIndex(3);
+                toggleModule.displayOnToggleState(sprite, "westernToggle", false);
                 hand.add(sprite);
                 groups[i].add(sprite);
             }
             hands.add(hand);
+            List<Sprite> westernHand = new ArrayList<>();
+            for (int j=0; j < 10; j++) {
+                Sprite sprite = graphicEntityModule.createSprite();
+                sprite.setImage(getImage(null, i, true));
+                sprite.setBaseWidth(96);
+                sprite.setBaseHeight(96);
+                sprite.setX(96 * (j%4));
+                sprite.setY(380 + 96 * (j/4));
+                sprite.setZIndex(3);
+                toggleModule.displayOnToggleState(sprite, "westernToggle", true);
+                westernHand.add(sprite);
+                groups[i].add(sprite);
+            }
+            westernHands.add(westernHand);
         }
-//        dropSquares = new Rectangle[2];
-//        for (int i=0; i < 2; i++) {
-//            Rectangle square = graphicEntityModule.createRectangle();
-//            square.setWidth(64);
-//            square.setHeight(64);
-//            square.setZIndex(3);
-//            square.setAlpha(0.0f, Curve.IMMEDIATE);
-//            square.setFillColor(0x00ff00);
-//            dropSquares[i] = square;
-//            groups[i].add(square);
-//        }
     }
 
-    private String getImage(Piece piece, int player) {
+    private String getImage(Piece piece, int player, boolean western) {
         if (piece == null) {
             return "empty.png";
         }
-        if (player == Game.FIRST_PLAYER) {
-            switch (piece) {
-                case PAWN: return "pawn1.png";
-                case ROOK: return "rook1.png";
-                case BISHOP: return "bishop1.png";
-                case SILVER: return "silver1.png";
-                case GOLD: return "gold1.png";
+        if (western) {
+            if (player == Game.FIRST_PLAYER) {
+                switch (piece) {
+                    case PAWN: return "wpawn1.png";
+                    case PROMOTED_PAWN: return "wppawn1.png";
+                    case ROOK: return "wrook1.png";
+                    case PROMOTED_ROOK: return "wprook1.png";
+                    case BISHOP: return "wbishop1.png";
+                    case PROMOTED_BISHOP: return "wpbishop1.png";
+                    case SILVER: return "wsilver1.png";
+                    case PROMOTED_SILVER: return "wpsilver1.png";
+                    case GOLD: return "wgold1.png";
+                    case KING: return "wking1.png";
+                }
+            } else {
+                switch (piece) {
+                    case PAWN: return "wpawn2.png";
+                    case PROMOTED_PAWN: return "wppawn2.png";
+                    case ROOK: return "wrook2.png";
+                    case PROMOTED_ROOK: return "wprook2.png";
+                    case BISHOP: return "wbishop2.png";
+                    case PROMOTED_BISHOP: return "wpbishop2.png";
+                    case SILVER: return "wsilver2.png";
+                    case PROMOTED_SILVER: return "wpsilver2.png";
+                    case GOLD: return "wgold2.png";
+                    case KING: return "wking2.png";
+                }
             }
         } else {
-            switch (piece) {
-                case PAWN: return "pawn2.png";
-                case ROOK: return "rook2.png";
-                case BISHOP: return "bishop2.png";
-                case SILVER: return "silver2.png";
-                case GOLD: return "gold2.png";
+            if (player == Game.FIRST_PLAYER) {
+                switch (piece) {
+                    case PAWN: return "pawn1.png";
+                    case PROMOTED_PAWN: return "ppawn1.png";
+                    case ROOK: return "rook1.png";
+                    case PROMOTED_ROOK: return "prook1.png";
+                    case BISHOP: return "bishop1.png";
+                    case PROMOTED_BISHOP: return "pbishop1.png";
+                    case SILVER: return "silver1.png";
+                    case PROMOTED_SILVER: return "psilver1.png";
+                    case GOLD: return "gold1.png";
+                    case KING: return "king1.png";
+                }
+            } else {
+                switch (piece) {
+                    case PAWN: return "pawn2.png";
+                    case PROMOTED_PAWN: return "ppawn2.png";
+                    case ROOK: return "rook2.png";
+                    case PROMOTED_ROOK: return "prook2.png";
+                    case BISHOP: return "bishop2.png";
+                    case PROMOTED_BISHOP: return "pbishop2.png";
+                    case SILVER: return "silver2.png";
+                    case PROMOTED_SILVER: return "psilver2.png";
+                    case GOLD: return "gold2.png";
+                    case KING: return "king2.png";
+                }
             }
         }
         return "empty.png";
@@ -217,21 +265,25 @@ public class PlayerViewer {
 
     public void updateHands() {
         for (int i=0; i < 2; i++) {
-//            dropSquares[i].setAlpha(0.0f, Curve.IMMEDIATE);
             List<Piece> playerHand = game.gameState.hands.get(i);
             for (int j=0; j < playerHand.size(); j++) {
                 Sprite sprite = hands.get(i).get(j);
-                sprite.setImage(getImage(playerHand.get(j), i));
+                sprite.setImage(getImage(playerHand.get(j), i, false));
                 graphicEntityModule.commitEntityState(0, sprite);
             }
             for (int j=playerHand.size(); j < 10; j++) {
-//                if (j == playerHand.size() && players[i].lastMove != null && players[i].lastMove.colFrom == -1) {
-//                    dropSquares[i].setX(96 * (j%4) + 16, Curve.IMMEDIATE);
-//                    dropSquares[i].setY(380 + 96 * (j/4) + 16, Curve.IMMEDIATE);
-//                    dropSquares[i].setAlpha(0.25f, Curve.IMMEDIATE);
-//                }
                 Sprite sprite = hands.get(i).get(j);
-                sprite.setImage(getImage(null, i));
+                sprite.setImage(getImage(null, i, false));
+                graphicEntityModule.commitEntityState(0, sprite);
+            }
+            for (int j=0; j < playerHand.size(); j++) {
+                Sprite sprite = westernHands.get(i).get(j);
+                sprite.setImage(getImage(playerHand.get(j), i, true));
+                graphicEntityModule.commitEntityState(0, sprite);
+            }
+            for (int j=playerHand.size(); j < 10; j++) {
+                Sprite sprite = westernHands.get(i).get(j);
+                sprite.setImage(getImage(null, i, true));
                 graphicEntityModule.commitEntityState(0, sprite);
             }
         }

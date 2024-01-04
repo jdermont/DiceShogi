@@ -18,6 +18,15 @@ export const playerColors = [
 
 export const options = [
     ToggleModule.defineToggle({
+        toggle: 'westernToggle',
+        title: 'Piece Set',
+        values: {
+            'Western': true,
+            'Standard': false
+        },
+        default: false
+    }),
+    ToggleModule.defineToggle({
         toggle: 'sfenToggle',
         title: 'Show SFEN',
         values: {
