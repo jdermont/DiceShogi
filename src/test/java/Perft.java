@@ -1,3 +1,4 @@
+import com.codingame.game.Game;
 import com.codingame.game.GameState;
 import com.codingame.game.Move;
 import org.junit.Assert;
@@ -20,6 +21,7 @@ public class Perft {
         Assert.assertEquals(2512,perft(gameState, 2, 2 ));
         Assert.assertEquals(35401,perft(gameState, 3, 3 ));
         Assert.assertEquals(533203,perft(gameState, 4, 4 ));
+        Assert.assertEquals(8276188,perft(gameState, 5, 5 ));
 
         gameState = new GameState("+P2+Sb/2g2/1ksp1/R1b2/K4 w gr 98");
         Assert.assertEquals(44,perft(gameState, 0, 0 ));
@@ -32,6 +34,8 @@ public class Perft {
         Assert.assertEquals(72,perft(gameState, 1, 1 ));
         Assert.assertEquals(1395,perft(gameState, 2, 2 ));
         Assert.assertEquals(10233,perft(gameState, 3, 3 ));
+        Assert.assertEquals(209599,perft(gameState, 4, 4 ));
+        Assert.assertEquals(2334958,perft(gameState, 5, 5 ));
 
         gameState = new GameState("Kb1+S1/4g/p1k1s/1+r2+r/1+p2+b w g 134");
         Assert.assertEquals(43,perft(gameState, 0, 0 ));
@@ -47,9 +51,33 @@ public class Perft {
         Assert.assertEquals(74414,perft(gameState, 4, 4 ));
         Assert.assertEquals(986390,perft(gameState, 5, 5 ));
 
+        gameState = new GameState("G2k1/Ps3/R2S1/G1B2/2KPR w B 36");
+        Assert.assertEquals(6,perft(gameState, 0, 0 ));
+        Assert.assertEquals(206,perft(gameState, 1, 1 ));
+        Assert.assertEquals(1519,perft(gameState, 2, 2 ));
+        Assert.assertEquals(37232,perft(gameState, 3, 3 ));
+        Assert.assertEquals(326508,perft(gameState, 4, 4 ));
+
+        gameState = new GameState("1bsg1/r1P2/3k1/PK3/1G1+r1 w sb 12");
+        Assert.assertEquals(55,perft(gameState, 0, 0 ));
+        Assert.assertEquals(294,perft(gameState, 1, 1 ));
+        Assert.assertEquals(12746,perft(gameState, 2, 2 ));
+        Assert.assertEquals(91522,perft(gameState, 3, 3 ));
+        Assert.assertEquals(3414510,perft(gameState, 4, 4 ));
+
+        gameState = new GameState("k3S/B1GP1/5/GS1K1/R1B2 b RP 95");
+        Assert.assertEquals(49,perft(gameState, 0, 0 ));
+        Assert.assertEquals(39,perft(gameState, 1, 1 )); // is less? oO
+        Assert.assertEquals(1461,perft(gameState, 2, 2 ));
+        Assert.assertEquals(17765,perft(gameState, 3, 3 ));
+        Assert.assertEquals(451016,perft(gameState, 4, 4 ));
+
         // 61 with drop pawn checkmate, 60 without them
         gameState = new GameState("k2+PS/2G2/BS3/b2K1/R4 b PRg 101");
         Assert.assertEquals(61,perft(gameState, 0, 0 ));
+        Assert.assertEquals(955,perft(gameState, 1, 1 ));
+        Assert.assertEquals(34286,perft(gameState, 2, 2 ));
+        Assert.assertEquals(301102,perft(gameState, 3, 3 ));
 
         // without drop pawn checkmate, from self testing
         GameState.ALLOW_PAWN_DROP_CHECKMATE = false;
@@ -66,9 +94,6 @@ public class Perft {
         Assert.assertEquals(3820,perft(gameState, 3, 3 ));
         Assert.assertEquals(74319,perft(gameState, 4, 4 ));
         Assert.assertEquals(986388,perft(gameState, 5, 5 ));
-
-        // this game crashed referee then due to inefficient drop pawn checking GameState gs = new GameState("r1k2/B4/r2gG/4p/b1SK1 b ps 65");
-        // drop pawn can stalemate k3S/B1GP1/5/GS1K1/R1B2 b RP 95 .......  p*53
     }
 
     static int perft(GameState gs, int level, int rootLevel) {

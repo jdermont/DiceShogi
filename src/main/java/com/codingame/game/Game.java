@@ -73,7 +73,7 @@ public class Game {
         List<Move> availableMoves = new ArrayList<>();
         for (Move move : moves) {
             int index = lastDiceRoll-1;
-            index = 4 - index; // TODO: or should be the other way
+            index = 4 - index;
             if (move.colTo == index) {
                 availableMoves.add(move);
             }

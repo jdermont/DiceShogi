@@ -282,7 +282,7 @@ public class BoardViewer {
         for (int i=0; i < 5; i++) {
             Rectangle column = columns[i];
             int index = game.getLastDiceRoll()-1;
-            index = 4 - index; // TODO: or should be the other way
+            index = 4 - index;
             if (!game.allMovesWereLegal() && index == i) {
                 column.setAlpha(0.4f,Curve.IMMEDIATE);
             } else {
