@@ -12,8 +12,8 @@ export const modules = [
 ];
 
 export const playerColors = [
-  '#202032', // black
-  '#b0b0e0' // white
+  '#505010', // black
+  '#f0f0b0' // white
 ];
 
 export const options = [

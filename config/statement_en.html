@@ -1,6 +1,6 @@
 <div style="color:#000000;background-color:rgba(255, 255, 255, 0.5);padding:20px;margin-bottom:10px;text-align:left">
     This is a port of the board game <a href="https://ludii.games/details.php?keyword=Dice%20Shogi">Dice Shogi</a>, which is a variant of <a href="https://en.wikipedia.org/wiki/Minishogi">Minishogi</a>.
-    <br>Click <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">not here</a> for the <a href="https://github.com/jdermont/DiceShogi/">referee</a>.
+    <br>Click <a href="https://github.com/jdermont/DiceShogi/">here</a> for the referee.
     <br>Shogi pieces are from <a href="https://lishogi.org/">Lishogi</a> and overall graphics inspired by Lishogi.<br>
 </div>
 
@@ -26,12 +26,12 @@
             <strong>Minishogi</strong> rules apply.<br><br>
             <strong>Grid: </strong><br> Game is played on a 5x5 board. There can be also pieces on the players' "hands".<br>
             Each player begins with a set of 6 pieces: King, Gold General, Silver General, Bishop, Rook and Pawn.<br>
-            <strong>The board starting position:</strong><br>
-            <p style="text-align: center;"><img src="https://i.imgur.com/Lj7VLOi.png" style="height: 300px; width: auto;"></img></p><br>
+            <strong>The board starting position:</strong>
+            <p style="text-align: center; padding-top: 12px;"><img src="https://i.imgur.com/Lj7VLOi.png" style="height: 300px; width: auto;"></img></p><br>
             <ul>
-                <li>Player 0(<strong style="color:#202032">black</strong>) has pieces at the bottom and Player 1(<strong style="color:#b0b0f0">white</strong>) has pieces at the top.</li>
-                <li>For the <strong style="color:#202032">Player 0</strong>, at the bottom from left are: King, Gold General, Silver General, Bishop, Rook. Pawn is at the front of the King.</li>
-                <li>For the <strong style="color:#b0b0e0">Player 1</strong>, at the top from left are: Rook, Bishop, Silver General, Gold General, King. Pawn is at the front of the King.</li>
+                <li>Player 0(<strong style="color:#505010">black</strong>) has pieces at the bottom and Player 1(<strong style="color:#f0f0b0">white</strong>) has pieces at the top.</li>
+                <li>For the <strong style="color:#505010">Player 0</strong>, at the bottom from left are: King, Gold General, Silver General, Bishop, Rook. Pawn is at the front of the King.</li>
+                <li>For the <strong style="color:#f0f0b0">Player 1</strong>, at the top from left are: Rook, Bishop, Silver General, Gold General, King. Pawn is at the front of the King.</li>
                 <li>Black always goes first and white goes next. Player rolls die on each turn.</li>
             </ul>
 
@@ -63,7 +63,7 @@
 
             <br>
             <strong>Captures: </strong><br>
-            When a piece goes into square occupied by opponent's piece, it captures it. The captured piece goes <strong>unpromoted</strong> into player's hand. In the subsequent turns, the player may choose to drop the piece onto the board under his control.
+            When a player's piece goes into a square occupied by the opponent's piece, the opponent's piece is captured and goes <strong>unpromoted</strong> into the player's hand. In the subsequent turns, the player may choose to drop the piece onto the board under his control.
 
             <br><br>
             <strong>Drops: </strong><br>
@@ -71,7 +71,7 @@
             <ul>
                 <li><strong>Pawn</strong> cannot be placed onto its furthest rank (row).</li>
                 <li><strong>Pawn</strong> cannot be placed onto file (column) that already contains player's unpromoted pawn.</li>
-                <li><strong>Pawn</strong> cannot deliver checkmate in the same turn. But it can do it in the subsequent turns.</li>
+                <li><strong>Pawn</strong> cannot deliver checkmate in the same turn. But it can do so in the subsequent turns.</li>
                 <li>Dropped piece on the furthest rank (row) doesn't get promoted in the same turn. But it may be promoted in the subsequent turns.</li>
             </ul>
 
@@ -84,13 +84,13 @@
             <strong>Dice rolling and movement: </strong><br>
             In <strong>Dice Shogi</strong>, at the start of a turn, the player rolls a die. The value of the die is the index of file (column) the piece must go to or be dropped to. The index starts from 5 from left to 1 to right, like the board notation.<br><br>
             <strong>Player has rolled <const>5</const>. He can move the Pawn in column <const>5</const>, or move the Bishop to column <const>5</const>.</strong><br>
-            <p style="text-align: center;"><img src="https://i.imgur.com/nX3Zw3C.png" style="height: 300px; width: auto;"></img></p><br><br>
+            <p style="text-align: center; padding-top: 12px;"><img src="https://i.imgur.com/nX3Zw3C.png" style="height: 300px; width: auto;"></img></p><br>
             <strong>Player has rolled <const>2</const>. He can move the Silver General to column <const>2</const>.</strong><br>
-            <p style="text-align: center;"><img src="https://i.imgur.com/8GQI5bb.png" style="height: 300px; width: auto;"></img></p><br><br>
+            <p style="text-align: center; padding-top: 12px;"><img src="https://i.imgur.com/8GQI5bb.png" style="height: 300px; width: auto;"></img></p><br>
             <strong>NOTES:</strong>
             <ul>
                 <li>If a player rolls <const>6</const>, then he can move to or drop to on any file (column).</li>
-                <li>If a player doesn't have legal move with the rolled file (column), then he can move to or drop to on any file (column).</li>
+                <li>If a player doesn't have legal move with the rolled file (column), then he can move to or drop to on any other file (column).</li>
             </ul>
         </div>
     </div>
@@ -132,8 +132,8 @@
             <div class="text">
                 <ul style="padding-bottom: 0;">
                     <li>Your king is checkmated.</li>
-                    <li>You don't have any legal moves in you turn (stalemate).</li>
-                    <li>You timeout, crash, give illegal move or unrecognizable output.</li>
+                    <li>You don't have any legal moves in your turn (stalemate).</li>
+                    <li>You timeout, crash or give unrecognizable output.</li>
                 </ul>
             </div>
         </div>
@@ -150,9 +150,9 @@
         <div class="blk">
             <div class="title">Pieces notation</div>
             <div class="text">
-                <span class="statement-lineno">First player</span>: <const>K</const> - king, <const>G</const> - Gold General, <const>S</const> - Silver General, <const>B</const> - Bishop, <const>R</const> - Rook, <const>P</const> - Pawn, <const>+S</const> - Promoted Silver, <const>+B</const> - Promoted Bishop, <const>+R</const> - Promoted Rook, <const>+P</const> - Promoted Pawn
+                <span class="statement-lineno">First player</span>: <const>K</const> - King, <const>G</const> - Gold General, <const>S</const> - Silver General, <const>B</const> - Bishop, <const>R</const> - Rook, <const>P</const> - Pawn, <const>+S</const> - Promoted Silver General, <const>+B</const> - Promoted Bishop, <const>+R</const> - Promoted Rook, <const>+P</const> - Promoted Pawn
                 <br>
-                <span class="statement-lineno">Second player</span>: <const>k</const> - king, <const>g</const> - Gold General, <const>s</const> - Silver General, <const>b</const> - Bishop, <const>r</const> - Rook, <const>p</const> - Pawn, <const>+s</const> - Promoted Silver, <const>+b</const> - Promoted Bishop, <const>+r</const> - Promoted Rook, <const>+p</const> - Promoted Pawn
+                <span class="statement-lineno">Second player</span>: <const>k</const> - King, <const>g</const> - Gold General, <const>s</const> - Silver General, <const>b</const> - Bishop, <const>r</const> - Rook, <const>p</const> - Pawn, <const>+s</const> - Promoted Silver General, <const>+b</const> - Promoted Bishop, <const>+r</const> - Promoted Rook, <const>+p</const> - Promoted Pawn
                 <br>
             </div>
         </div>
@@ -167,11 +167,12 @@
             <div class="title">Input for one game turn</div>
             <div class="text">
                 <span class="statement-lineno"><var>boardSize</var> lines</span>: a string of characters representing one line of the board, top to bottom. (<const>.</const>: empty, <const>K</const>: first player king, <const>k</const>: second player king, and so on, see Pieces notation above).<br>
-                <span class="statement-lineno">First player's current hand</span>, or <const>-</const> if he has no pieces in the hand. Examples: <const>-</const>, <const>G</const>, <const>BB</const><br>
-                <span class="statement-lineno">Second player's current hand</span>, or <const>-</const> if he has no pieces in the hand. Examples: <const>-</const>, <const>g</const>, <const>bb</const><br>
-                <span class="statement-lineno">Value</span> of the rolled die.<br>
-                <span class="statement-lineno">Last opponent's <var>action</var></span> or <const>none</const> if first turn of first player.<br>
-                <span class="statement-lineno"><var>actionCount</var> actions</span>: a string representing the action.
+                <span class="statement-lineno">Next line</span>: First player's current hand, or <const>-</const> if he has no pieces in the hand. Examples: <const>-</const>, <const>G</const>, <const>BB</const><br>
+                <span class="statement-lineno">Next line</span>: Second player's current hand, or <const>-</const> if he has no pieces in the hand. Examples: <const>-</const>, <const>g</const>, <const>bb</const><br>
+                <span class="statement-lineno">Next line</span>: Value of the rolled die.<br>
+                <span class="statement-lineno">Next line</span>: Last opponent's <var>action</var> or <const>none</const> if first turn of first player.<br>
+                <span class="statement-lineno">Next line</span>: <var>actionCount</var> for the number of legal actions for this turn.<br>
+                <span class="statement-lineno">Next <var>actionCount</var> lines</span>: a string representing a legal action.
                 <br>
             </div>
         </div>
