@@ -85,6 +85,7 @@ public class PlayerViewer {
                     .setFontSize(32)
                     .setFontFamily("Verdana")
                     .setText(nickname)
+                    .setFillColor(i == 0 ? 0xff1d5c : 0x22a1e4)
                     .setMaxWidth(380);
             groups[i].add(text);
         }
